@@ -48,13 +48,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function provinces () {
+    public function province () {
         return $this->belongsTo(Province::class);
     }
-    public function districts () {
+    public function district () {
         return $this->belongsTo(District::class);
     }
-    public function tehsils() {
+    public function tehsil() {
         return $this->belongsTo(Tehsil::class);
     }
 }
