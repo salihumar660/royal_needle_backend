@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class UserRequest extends FormRequest
+class NaapBookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +23,22 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => ['required', 'string', 'email', 'max:255',
-            Rule::unique('users')->ignore($this->route('user'))],
+            'email' => 'required|string|email|max:255',
             'phone' => 'nullable|string|min:11|max:11',
+            'chest' => 'nullable|string|max:255',
+            'neck' => 'nullable|string|max:255',
+            'waist' => 'nullable|string|max:255',
+            'hips' => 'nullable|string|max:255',
+            'shoulder' => 'nullable|string|max:255',
+            'sleeveLength' => 'nullable|string|max:255',
+            'wrist' => 'nullable|string|max:255',
+            'thigh' => 'nullable|string|max:255',
+            'shirt_length' => 'nullable|string|max:255',
+            'trouser_length' => 'nullable|string|max:255',
             'province_id' => 'nullable|integer|exists:provinces,id',
             'district_id' => 'nullable|integer|exists:district,id',
             'tehsil_id' => 'nullable|integer|exists:tehsil,id',
+            'notes' => 'nullable|string|max:255',
         ];
     }
 }

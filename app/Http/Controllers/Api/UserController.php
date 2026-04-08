@@ -44,7 +44,12 @@ class UserController extends Controller
     public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
-        $user->update($request->all());
+        $data = $request->validated();
+         // If password is empty, remove it
+        if (empty($data['password'])) {
+            unset($data['password']);
+        }
+        $user->update($data);
         return response()->json([
             'message' => 'User updated successfully',
             'user' => $user
