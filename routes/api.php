@@ -5,11 +5,14 @@ use App\Http\Controllers\Api\ProvinceController;
 use App\Http\Controllers\Api\DistrictController;
 use App\Http\Controllers\Api\TehsilController;
 use App\Http\Controllers\Api\NaapBookController;
+use App\Http\Controllers\Api\OrderController;
 //API Routes
+Route::get('/next-naap-code', [NaapBookController::class, 'nextCode']);
 Route::apiResource('users', UserController::class);
 Route::apiResource('provinces', ProvinceController::class);
 Route::apiResource('districts', DistrictController::class);
 Route::apiResource('tehsils', TehsilController::class);
 Route::apiResource('naapBook', NaapBookController::class);
+Route::apiResource('orders', OrderController::class);
 Route::get('provinces/{provinceId}/districts', [TehsilController::class, 'getDistricts']);
 Route::get('districts/{districtId}/tehsils', [TehsilController::class, 'getTehsils']);

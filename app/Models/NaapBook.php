@@ -9,6 +9,7 @@ class NaapBook extends Model
     protected $table = 'naap_book';
 
     protected $fillable = [
+        'naap_code',
         'name',
         'email',
         'phone',
@@ -22,6 +23,14 @@ class NaapBook extends Model
         'thigh',
         'shirt_length',
         'trouser_length',
+        'arm_hole',
+        'back_width',
+        'coat_length',
+        'collar_type',
+        'shalwar_pancha',
+        'quantity',
+        'measurement_date',
+        'delivery_date',
         'province_id',
         'district_id',
         'tehsil_id',
@@ -40,5 +49,9 @@ class NaapBook extends Model
     public function tehsil()
     {
         return $this->belongsTo(Tehsil::class);
+    }
+    public function order()
+    {
+        return $this->hasMany(Order::class);
     }
 }
