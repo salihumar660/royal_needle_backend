@@ -10,10 +10,28 @@ use App\Helpers\Helper;
 
 class NaapBookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-       $naapBooks = NaapBook::with('province', 'district', 'tehsil')->get();
-        return response()->json($naapBooks);
+       $naapBooks = NaapBook::with('province', 'district', 'tehsil');
+       if($request->search) {
+        $search = $request->search;
+            $naapBooks->where(function ($q) use ($search){
+                $q->where('name', 'like', '%'.$search.'%')
+                ->orWhere('email', 'like', '%'.$search.'%')
+                ->orWhere('naap_code', 'like', '%'.$search.'%')
+                ->orWhereHas('province', function ($q1) use ($search) {
+                    $q1->where('name', 'like', '%'.$search.'%');
+                })
+                ->orWhereHas('district', function ($q2) use ($search) {
+                    $q2->where('name', 'like', '%'.$search.'%');
+                })
+                ->orWhereHas('tehsil', function ($q3) use ($search) {
+                    $q3->where('name', 'like', '%'.$search.'%');
+                });
+            });
+       }
+       $naapBooks = $naapBooks->get();
+        return response()->json(['data' => $naapBooks]);
     }
     //for live code in add form in React
     public function nextCode()
